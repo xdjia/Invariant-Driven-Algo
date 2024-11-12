@@ -1,6 +1,6 @@
 # Problem: Given a sorted list of integers, count the number of different absolute values.
 
-def countDistinctAbsoluteValues(nums:list[int]) -> int:
+def countDistinctAbsoluteValues(nums: list[int]) -> int:
     """
     Counts the number of distinct absolute values in a sorted list of integers.
 
@@ -31,14 +31,21 @@ def countDistinctAbsoluteValues(nums:list[int]) -> int:
             current = right_abs
             right -= 1
 
+        # Invariant check: current should be the minimum absolute value in the current window.
+        assert current == min(abs(n) for n in nums[:left] + nums[right + 1:]), "Invariant failed!"
+
         # Only count if the current absolute value is different from the last seen.
         if current != last_seen:
             count += 1
             last_seen = current
 
+    # Final invariant check: count should equal the reference function's result.
+    #   Actually, this must hold because `left > right`, so `nums[:left] + nums[right + 1:] == nums`
+    assert count == ref(nums), "Final invariant failed!"
+
     return count
 
-def ref(nums):
+def ref(nums: list[int]) -> int:
     """
     Reference function using a set to count distinct absolute values.
 
@@ -48,7 +55,6 @@ def ref(nums):
     Returns:
     int: The count of distinct absolute values.
     """
-
     return len(set(abs(n) for n in nums))
 
 # Example Usage:
@@ -60,7 +66,6 @@ test_cases = [
     [0, 0, 0],               # Only zeros
 ]
 
+# Testing the function with example cases
 for case in test_cases:
     result = countDistinctAbsoluteValues(case)
-    expected = ref(case)
-    assert result == expected
