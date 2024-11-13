@@ -10,14 +10,14 @@ def countDistinctAbsoluteValues(nums: list[int]) -> int:
     Returns:
     int: The count of distinct absolute values.
     """
-    
+
     left, right = 0, len(nums) - 1
     count = 0
     last_seen = None
 
+    # Invariant check: count should match the reference function's output for the excluded middle part.
+    assert count == ref(nums[:left] + nums[right + 1:]), "Invariant failed!"
     while left <= right:
-        # Invariant check: count should match the reference function's output for the excluded middle part.
-        assert count == ref(nums[:left] + nums[right + 1:]), "Invariant failed!"
 
         # Absolute values at both ends of the current window.
         left_abs = abs(nums[left])
@@ -32,18 +32,24 @@ def countDistinctAbsoluteValues(nums: list[int]) -> int:
             right -= 1
 
         # Invariant check: current should be the minimum absolute value in the current window.
-        assert current == min(abs(n) for n in nums[:left] + nums[right + 1:]), "Invariant failed!"
+        assert current == min(
+            abs(n) for n in nums[:left] + nums[right + 1:]), "Invariant failed!"
 
         # Only count if the current absolute value is different from the last seen.
         if current != last_seen:
             count += 1
             last_seen = current
 
+        # Invariant check: count should match the reference function's output for the excluded middle part.
+        assert count == ref(
+            nums[:left] + nums[right + 1:]), "Invariant failed!"
+
     # Final invariant check: count should equal the reference function's result.
     #   Actually, this must hold because `left > right`, so `nums[:left] + nums[right + 1:] == nums`
     assert count == ref(nums), "Final invariant failed!"
 
     return count
+
 
 def ref(nums: list[int]) -> int:
     """
@@ -56,6 +62,7 @@ def ref(nums: list[int]) -> int:
     int: The count of distinct absolute values.
     """
     return len(set(abs(n) for n in nums))
+
 
 # Example Usage:
 test_cases = [
