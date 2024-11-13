@@ -38,3 +38,4 @@ In the code, you’ll find `assert` statements used to express invariants. These
 | 1  | Count Distinct Absolute Values        | Given a sorted list of integers, count the number of distinct absolute values.     | Two Pointers | [Solution](./problems/1.%20countDistinctAbsoluteValues.py) |
 | 2  | kSum        | Given an integer `target`, a number `k>=2`, and a list of integers, find all k-tuples that sum up to `target`.     | Two Pointers | [Solution](./problems/2.%20kSum.py) |
 | 3  | minInRotated        | Find the minimum in a rotated and sorted array.     | Binary Search | [Solution](./problems/3.%20minInRotated.py) |
+| 4  | TrapRainWater        | Calculates the total amount of trapped rainwater.     | Two Pointers | [Solution](./problems/4.%20TrapRain.py) |
